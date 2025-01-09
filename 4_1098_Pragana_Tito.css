@@ -19,7 +19,7 @@ body{
 }
 .div-change-color-buttons{
     display: flex;
-    gap: 2vw;
+    gap: 0.7vw;
 }
 .change-color-button{
     padding: 5px;

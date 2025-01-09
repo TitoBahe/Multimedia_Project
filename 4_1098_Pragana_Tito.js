@@ -16,8 +16,12 @@ const resizeButton = document.getElementById('resize');
 
 const deleteButton = document.getElementById('delete');
 
+const textButton = document.getElementById('Textbutton');
+const Inputtext = document.getElementById('Inputtext');
+const InputColor = document.getElementById('InputColor');
+
 const ctx = canvas.getContext('2d');
-// console.log(ctx);
+console.log(ctx);
 
 let initialX, initialY, finalX, finalY, imageData;
 
@@ -45,6 +49,7 @@ canvas.addEventListener('drop', (e)=>{
 });
 
 canvas.addEventListener('mousedown', (e) => {
+   
     if (e.button === 0) {
         if(finalX && finalY){
             
@@ -66,6 +71,16 @@ canvas.addEventListener('mousedown', (e) => {
         initialY = (e.clientY - rect.top) * scaleY;
 
 
+    }
+});
+
+canvas.addEventListener('mousemove', (e)=>{
+    if(e.shiftKey === true && finalX && finalY){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        ctx.putImageData(imageData, (e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
     }
 });
 
@@ -219,3 +234,12 @@ function create(values){
         context.fillRect(barX, barY, barWidth, barHeight);
     }
 }
+
+textButton.addEventListener('click', (e)=>{
+    
+    const text = Inputtext.value;
+    const color = InputColor.value
+    ctx.fillStyle = `${color}`;
+    ctx.font = "bold 56px serif";
+    ctx.fillText(text, initialX, initialY);
+});
